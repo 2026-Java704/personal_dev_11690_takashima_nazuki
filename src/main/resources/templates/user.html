@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<h3>新規登録</h3>
+	<form action="/users/add" method="post">
+		
+		<ul th:if="${errorList}" class="error">
+			<li th:each="error:${errorList}" th:text="${error}"></li>
+		</ul>
+		
+	<table border="1">
+		<tr>
+			<th>メールアドレス</th>
+			<td>
+				<input type="text" name="email" th:value="${email}">
+			</td>
+		</tr>
+		<tr>
+			<th>名前</th>
+			<td>
+				<input type="text" name="name" th:value="${name}">
+			</td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td>
+				<input type="text" name="password">
+			</td>
+		</tr>
+		<tr>
+			<th>年齢</th>
+			<td>
+				<input type="text" name="age" th:value="${age}">
+			</td>
+		</tr>	
+		<tr>
+			<th>性別</th>
+			<td>
+				<select name="gender">
+					<option value="" selected disabled> 選択してください</option>
+					<option value="1">男性</option>
+					<option value="2">女性</option>
+				</select>
+			</td>
+		</tr>	
+	</table>
+	<button>登録</button>
+	</form>
+</main>
+</body>
+</html>

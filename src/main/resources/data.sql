@@ -1,4 +1,6 @@
--- 顧客テーブルデータ
-INSERT INTO users(name, email, password) VALUES('田中太郎', 'tanaka@aaa.com', 'himitu');
-INSERT INTO users(name, email, password) VALUES('鈴木一郎', 'suzuki@aaa.com', 'himitu');
-INSERT INTO users(name, email, password) VALUES('佐藤花子', 'sato@aaa.com', 'himitu');
+-- dishes テーブルにデータを挿入するクエリ
+INSERT INTO dishes(dish_id,name) VALUES (1,'主食');
+INSERT INTO dishes(dish_id,name) VALUES (2,'副菜');
+INSERT INTO dishes(dish_id,name) VALUES (3,'主菜');
+INSERT INTO dishes(dish_id,name) VALUES (4,'牛乳・乳製品');
+INSERT INTO dishes(dish_id,name) VALUES (5,'果物');

@@ -37,6 +37,19 @@ public class Result {
 
 	}
 
+	public Result(LocalDate recordDate, Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish,
+			Integer fruitCount, String detailMemo) {
+
+		this.recordDate = recordDate;
+		this.stapleFood = stapleFood;
+		this.sideDish = sideDish;
+		this.mainDish = mainDish;
+		this.milkDish = milkDish;
+		this.fruitCount = fruitCount;
+		this.detailMemo = detailMemo;
+
+	}
+
 	public Result(Integer id, Integer userId, LocalDate recordDate, Integer stapleFood, Integer sideDish,
 			Integer mainDish, Integer milkDish, Integer fruitCount, String detailMemo, Integer achievement) {
 		this.id = id;
@@ -51,9 +64,9 @@ public class Result {
 		this.achievement = achievement;
 	}
 
-	public Result(Integer id, LocalDate recordDate, Integer stapleFood, Integer sideDish, Integer mainDish,
+	public Result(Integer userId, LocalDate recordDate, Integer stapleFood, Integer sideDish, Integer mainDish,
 			Integer milkDish, Integer fruitCount, String detailMemo, Integer achievement) {
-		this.id = id;
+		this.userId = userId;
 		this.recordDate = recordDate;
 		this.stapleFood = stapleFood;
 		this.sideDish = sideDish;
@@ -61,6 +74,28 @@ public class Result {
 		this.milkDish = milkDish;
 		this.fruitCount = fruitCount;
 		this.detailMemo = detailMemo;
+		this.achievement = achievement;
+	}
+
+	public Result(LocalDate recordDate, Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish,
+			Integer fruitCount, String detailMemo, Integer achievement) {
+		this.recordDate = recordDate;
+		this.stapleFood = stapleFood;
+		this.sideDish = sideDish;
+		this.mainDish = mainDish;
+		this.milkDish = milkDish;
+		this.fruitCount = fruitCount;
+		this.detailMemo = detailMemo;
+		this.achievement = achievement;
+	}
+
+	public Result(Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish, Integer fruitCount,
+			Integer achievement) {
+		this.stapleFood = stapleFood;
+		this.sideDish = sideDish;
+		this.mainDish = mainDish;
+		this.milkDish = milkDish;
+		this.fruitCount = fruitCount;
 		this.achievement = achievement;
 	}
 

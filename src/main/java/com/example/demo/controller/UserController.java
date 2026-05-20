@@ -12,22 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.User;
-import com.example.demo.model.Account;
 import com.example.demo.repository.UserRepository;
 
 @Controller
 public class UserController {
 
 	private final HttpSession session;
-	private final Account account;
+
 	private final UserRepository userRepository;
 
-	public UserController(
-			HttpSession session,
-			Account account,
-			UserRepository userRepository) {
+	public UserController(HttpSession session, UserRepository userRepository) {
 		this.session = session;
-		this.account = account;
 		this.userRepository = userRepository;
 	}
 
@@ -54,7 +49,8 @@ public class UserController {
 			return "login";
 		}
 
-		return "redirect:/dishes";
+		session.setAttribute("userId", userList.get(0).getUserId());
+		return "redirect:/dishes/result";
 	}
 
 	@GetMapping("/users/add")

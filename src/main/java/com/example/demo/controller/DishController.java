@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
@@ -48,14 +49,17 @@ public class DishController {
 
 	@PostMapping("/dishes/add")
 	public String bbb(
-			@RequestParam(defaultValue = "") String name,
-			@RequestParam(defaultValue = "") String email,
-			@RequestParam(defaultValue = "") String password,
-			@RequestParam(defaultValue = "") Integer age,
-			@RequestParam(defaultValue = "") Integer gender,
+			@RequestParam(defaultValue = "") LocalDate recordDate,
+			@RequestParam(defaultValue = "") Integer stapleFood,
+			@RequestParam(defaultValue = "") Integer sideDish,
+			@RequestParam(defaultValue = "") Integer mainDish,
+			@RequestParam(defaultValue = "") Integer milkDish,
+			@RequestParam(defaultValue = "") Integer fruitCount,
+			@RequestParam(defaultValue = "") String detailMemo,
 			Model model) {
 
 		Integer userId = (Integer) session.getAttribute("userId");
+
 		return "dishesadd";
 	}
 

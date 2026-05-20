@@ -54,7 +54,7 @@ public class UserController {
 			return "login";
 		}
 
-		return "redirect:/result";
+		return "redirect:/dishes";
 	}
 
 	@GetMapping("/users/add")

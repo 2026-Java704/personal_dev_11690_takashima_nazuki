@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>登録内容一覧</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<h1>登録内容一覧</h1>
+	</header>
+	<main>
+	<form action="/dishes/add" method="post">
+			<table border="1">
+				<tr>
+					<th>日付</th>
+					<th>主食</th>
+					<th>副菜</th>
+					<th>主菜</th>
+					<th>乳製品</th>
+					<th>果物</th>
+					<th>メモ</th>
+					<th>点数</th>
+					<th></th>
+				</tr>
+				<tr>
+					<td>
+						<script>
+							var today=new Date();
+							//年・月・日・曜日を取得
+							//var year = today.getFullYear();
+							var month = today.getMonth()+1;
+							var week = today.getDay();
+							var day = today.getDate();
+							var week_ja= new Array("日","月","火","水","木","金","土");
+
+							//年・月・日・曜日を書き出す
+							document.write(month+"月"+day+"日 "+week_ja[week]+"曜日");
+						</script>
+					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>					
+						<form action="/dish/add" method="post">
+
+						<button>更新</button>
+						</form>
+					</td>	
+				</tr>
+				
+				<button>新規作成</button>
+				<a href="/logout">ログアウト</a>
+				</main>
+</body>
+</html>

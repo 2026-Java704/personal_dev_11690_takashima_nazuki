@@ -99,6 +99,14 @@ public class Result {
 		this.achievement = achievement;
 	}
 
+	public Result(Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish, Integer fruitCount) {
+		this.stapleFood = stapleFood;
+		this.sideDish = sideDish;
+		this.mainDish = mainDish;
+		this.milkDish = milkDish;
+		this.fruitCount = fruitCount;
+	}
+
 	public Integer getId() {
 		return id;
 	}

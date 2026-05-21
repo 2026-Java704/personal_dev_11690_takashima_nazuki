@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,15 +33,7 @@ public class DishController {
 	@GetMapping("/dishes/result")
 	public String index(Model model) {
 		List<Result> resultList = resultRepository.findAll();
-		model.addAttribute("dishes", resultList);
-
-		return "dishesresult";
-	}
-
-	//登録内容一覧処理
-	@PostMapping("dishes/result")
-	public String result() {
-
+		model.addAttribute("resultList", resultList); //"dishes"
 		return "dishesresult";
 	}
 
@@ -48,26 +41,68 @@ public class DishController {
 	@GetMapping("/dishes/add")
 	public String create() {
 		return "dishesadd";
+	}
 
+	@GetMapping("/dishes/memo")
+	public String memo(
+			@RequestParam Integer stapleFood,
+			@RequestParam Integer sideDish,
+			@RequestParam Integer mainDish,
+			@RequestParam Integer milkDish,
+			@RequestParam Integer fruitCount,
+			Model model) {
+
+		model.addAttribute("stapleFood", stapleFood);
+		model.addAttribute("sideDish", sideDish);
+		model.addAttribute("mainDish", mainDish);
+		model.addAttribute("milkDish", milkDish);
+		model.addAttribute("fruitCount", fruitCount);
+
+		return "dishMemo";
 	}
 
 	//新規食事登録処理	
 	@PostMapping("/dishes/add")
-	public String bbb(
+	public String add(
 			@RequestParam(defaultValue = "") LocalDate recordDate,
-			@RequestParam(defaultValue = "") Integer stapleFood,
-			@RequestParam(defaultValue = "") Integer sideDish,
-			@RequestParam(defaultValue = "") Integer mainDish,
-			@RequestParam(defaultValue = "") Integer milkDish,
-			@RequestParam(defaultValue = "") Integer fruitCount,
+			@RequestParam Integer stapleFood,
+			@RequestParam Integer sideDish,
+			@RequestParam Integer mainDish,
+			@RequestParam Integer milkDish,
+			@RequestParam Integer fruitCount,
 			@RequestParam(defaultValue = "") String detailMemo,
 			Model model) {
 
-		Integer userId = (Integer) session.getAttribute("userId");
+		List<String> errorList = new ArrayList<>();
+		if (stapleFood == null) {
+			errorList.add("主食を選択してください");
+		}
+		if (sideDish == null) {
+			errorList.add("副菜を選択してください");
+		}
+		if (mainDish == null) {
+			errorList.add("主菜を選択してください");
+		}
+		if (milkDish == null) {
+			errorList.add("乳製品を選択してください");
+		}
+		if (fruitCount == null) {
+			errorList.add("果物を選択してください");
+		}
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			model.addAttribute("stapleFood", stapleFood);
+			model.addAttribute("sideDish", sideDish);
+			model.addAttribute("mainDish", mainDish);
+			model.addAttribute("milkDish", milkDish);
+			model.addAttribute("fruitCount", fruitCount);
+			return "dishesadd";
+		}
 
+		Integer userId = (Integer) session.getAttribute("userId");
 		Result result = new Result();
 		result.setUserId(userId);
-		result.setRecordDate(recordDate.now());
+		result.setRecordDate(LocalDate.now());
 		result.setStapleFood(stapleFood);
 		result.setSideDish(sideDish);
 		result.setMainDish(mainDish);
@@ -83,7 +118,7 @@ public class DishController {
 		result.setAchievement(achievement);
 		resultRepository.save(result);
 
-		return "dishesadd";
+		return "redirect:/dishes/result";
 	}
 
 	//更新画面表示
@@ -110,22 +145,33 @@ public class DishController {
 			@RequestParam(defaultValue = "") Integer fruitCount,
 			@RequestParam(defaultValue = "") String detailMemo,
 			Model model) {
+
 		Result result = resultRepository.findById(id).get();
-		result.setRecordDate(recordDate.now());
+		Integer userid = (Integer) session.getAttribute("userid");
+
+		result.setRecordDate(recordDate);
 		result.setStapleFood(stapleFood);
 		result.setSideDish(sideDish);
 		result.setMainDish(mainDish);
 		result.setMilkDish(milkDish);
 		result.setFruitCount(fruitCount);
 		result.setDetailMemo(detailMemo);
+		int achievement = sumAchievement(
+				stapleFood,
+				sideDish,
+				mainDish,
+				milkDish,
+				fruitCount);
+		result.setAchievement(achievement);
 		resultRepository.save(result);
 
-		return "dishesedit";
+		return "redirect:/dishes/result";
 	}
 
 	private int sumAchievement(Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish,
 			Integer fruitCount) {
-		// TODO 自動生成されたメソッド・スタブ
+
 		return 0;
 	}
+
 }

@@ -6,58 +6,55 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h1>登録内容一覧</h1>
-<header>
-<h1>登録内容一覧</h1>
-</header>
-<table border="1">
+	<header>
+		<h1>登録内容一覧</h1>
+	</header>
+	<table border="1">
 		<tr>
 			<th>日付</th>
-			<th>主菜</th>
-			<th>副菜</th>
 			<th>主食</th>
-			<th>乳製品</th>
+			<th>副菜</th>
+			<th>主菜</th>
+			<th>牛乳・乳製品</th>
 			<th>果物</th>
 			<th>メモ</th>
-			<th>採点</th>
-			<th>更新</th>			
+			<th>点数</th>
 			<th>更新</th>
 		</tr>
 		<tr th:each="record:${resultList}">
-			<td th:text ="${record.stapleFood}"></td>
-			<td th:text ="${record.sideDish}"></td>
-			<td th:text ="${record.mainDish}"></td>
-			<td th:text ="${record.milkDish}"></td>
-			<td th:text ="${record.fruitcount}"></td>
-			<td th:text ="${record.detaiMemo}"></td>
-			<td th:text ="${record.achivment}"></td>
-			
+			<td th:text="${record.recordDate}"></td>
+			<td>
+				<span th:text="${record.stapleFood}"></span><br>
+				<span th:text="${record.stapleFood >= 5 && record.stapleFood <= 7 ? '〇' : '✕'} "></span>
+			</td>
+			<td>
+				<span th:text="${record.sideDish}"></span><br>
+				<span th:text="${record.sideDish >= 5 && record.stapleFood <= 6 ? '〇' : '✕'}"></span>
+			</td>
+			<td>
+				<span th:text="${record.mainDish}"></span><br>
+				<span th:text="${record.mainDish >= 3 && record.mainDish <= 5 ?'〇' : '✕'}"></span>
+			</td>
+			<td>
+				<span th:text="${record.milkDish}"></span><br>
+				<span th:text="${record.milkDish ==2 ? '〇' : '✕'}"></span>
+			</td>
+			<td>
+				<span th:text="${record.fruitCount}"></span><br>
+				<span th:text="${record.fruitCount == 2 ? '〇' : '✕'}"></span>
+			</td>
+			<td th:text="${record.detailMemo}"></td>
+			<td th:text="${record.achievement}"></td>
+			<td>
+				<form th:action="@{/dishes/{id}/edit(id=${record.id})}" method="get">
+				<button type="submit">更新</button>
+				</form>
+			</td>
 		</tr>
-
-
-		
 	</table>
-	
-	
-	
-
-	<a href="/dishes/add">新規内容登録</a>
-
-
-
-
-	<a href="/logout">ログアウト</a>
+	<form action="/dishes/add" method="get">
+		<button>登録画面へ</button><br>
+	</form>
+	<a href="/logout"><button>ログアウト</button></a>
 </body>
 </html>
-		<script>
-			var today=new Date();
-			//年・月・日・曜日を取得
-			//var year = today.getFullYear();
-			var month = today.getMonth()+1;
-			var week = today.getDay();
-		    var day = today.getDate();
-			var week_ja= new Array("日","月","火","水","木","金","土");
-
-			//年・月・日・曜日を書き出す
-			document.write(month+"月"+day+"日 "+week_ja[week]+"曜日");
-		</script>

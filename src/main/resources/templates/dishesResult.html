@@ -46,7 +46,7 @@
 				<span th:text="${record.fruitCount}"></span><br>
 				<span th:text="${record.fruitCount == 2 ? '〇' : '✕'}"></span>
 			</td>
-			<td th:text="${record.detailMemo}"></td>
+			<td class="memo" th:text="${record.detailMemo}"></td>
 			<td th:text="${record.achievement}"></td>
 			<td >
 				<form th:action="@{/dishes/{id}/edit(id=${record.id})}" method="get">

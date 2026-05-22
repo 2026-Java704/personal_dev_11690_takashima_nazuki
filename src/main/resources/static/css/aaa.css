@@ -81,16 +81,12 @@ table-button{
 
 
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
 
-.form-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #555;
-}
+
+
+
+
+
 /* 送信ボタン */
 button {
   width: 30%;
@@ -146,12 +142,9 @@ input:focus {
 }
 
 
-
-
-
-
-
-
+.memo{
+	white-space: pre-wrap;
+}
 
 
 

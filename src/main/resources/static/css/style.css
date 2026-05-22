@@ -1,12 +1,30 @@
+
 /* 全体 */
 body {
-	background-color: #EFF0F7; /* 背景色  */
+background-color: #ffd670;
+background-image: radial-gradient(circle, #ff9770, #ffd670);
+font-family: 'Comic Sans MS', cursive, sans-serif;
+color: #4d2600;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center; /* 背景色  */
 	text-align: center; /* 中央寄せ */
     min-width: 900px; /* 最小幅 */
 }
+
+.login-container {
+  background-color: #fff2cc;
+  padding: 40px;
+  border-radius: 50% 20% / 10% 40%;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding-left: 60px;
+  padding-right:90px;
+}
 /* ヘッダー、ナビゲーションメニュー、フッター */
 header, nav, footer {
-	background-color: #45496a; /* 背景色 */
+	background-color: rgb(255, 255, 128); /* 背景色 */
 	color: #ffffff; /* 文字色 */
 	padding-top: 5px; /* 内側余白(上) */
 	padding-bottom: 5px; /* 内側余白(下) */
@@ -23,46 +41,87 @@ header h1 {
 
 /* 仕切り線 */
 hr {
-	border-top: 2px dashed #7d8bae;
+	border-top: 2px dashed rgb(64, 0, 0);
 }
 /* メイン */
 main {
-	background-color: #FFFFFF;
 	min-height: 50px;
 	padding: 20px;
 }
 /* 表線 */
 table, th, td {
 	border-collapse: collapse;
-	border: 1px solid #7d8bae;
+	border: 1px solid rgb(64, 0, 0);
 }
 /* 表 */
-table {
-    margin: 5px auto;
-    min-width: 800px;
+table{
+  border-collapse:separate;
+  border-spacing: 5px;
+  width: 100%;
 }
-/* 表見出しセル */
-table th {
-	background: #7d8bae;
-	color: #ffffff;
+
+table th,table td{
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px 0;
 }
+
+table th{
+  background-color: #c79852;
+  color: rgb(255, 255, 128);
+  border:solid 1px #927141;
+}
+
+table td{
+  background-color: rgb(255, 255, 128);
+  border:solid 1px #af9d85;
+}
+
 /* 送信ボタン */
 button {
+	width: 100%;
 	margin: 2px;
-	padding: 5px 20px;
-	background-color: #e5857b;
-	color: #ffffff;
+	padding: 15px;
+	background-color: #ff6347;
+	color: #fff;
+	border-radius: 50px 20px;
 	border: none;
-	width:150px;
+	font-size: 18px;
+	font-weight: bold;
+	width:100%;
 	cursor: pointer;
 }
 /* 送信ボタン(マウスオーバー時) */
 button:hover {
 	background-color: #f1b2b2;
+	transform: scale(1.1);
 }
 /* エラーメッセージ */
 ul.error {
 	color: red;
 	list-style: none;
 	padding-left: 0;
+}
+
+input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #ff6357;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: rgb(128, 64, 64);
+  text-align: center;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff6347;
+  box-shadow: 0 0 5px rgb(128, 64, 64);
+}
+
+.form-group{
+	margin-bottom: 15px;
 }

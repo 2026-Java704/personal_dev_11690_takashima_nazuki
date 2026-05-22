@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>登録内容一覧</title>
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/aaa.css">
 </head>
 <body>
 	<header>
 		<h1>登録内容一覧</h1>
 	</header>
+	<div style="text-align: right;"><a href="/logout"><button>ログアウト</button></a>
+	</div><br>
 	<table border="1">
 		<tr>
 			<th>日付</th>
@@ -20,6 +22,7 @@
 			<th>メモ</th>
 			<th>点数</th>
 			<th>更新</th>
+			<th>削除</th>
 		</tr>
 		<tr th:each="record:${resultList}">
 			<td th:text="${record.recordDate}"></td>
@@ -45,16 +48,21 @@
 			</td>
 			<td th:text="${record.detailMemo}"></td>
 			<td th:text="${record.achievement}"></td>
-			<td>
+			<td >
 				<form th:action="@{/dishes/{id}/edit(id=${record.id})}" method="get">
 				<button type="submit">更新</button>
+				</form>
+			</td>
+			<td>
+				<form th:action="'/dishes/'+${record.id}+'/delete'" method="post">
+					<button type="submit">削除</button>
 				</form>
 			</td>
 		</tr>
 	</table>
 	<form action="/dishes/add" method="get">
-		<button>登録画面へ</button><br>
+		<button>登録画面へ</button><br><br>
 	</form>
-	<a href="/logout"><button>ログアウト</button></a>
+	<img src="https://www.maff.go.jp/j/balance_guide/img/kihon_syoku.jpg">
 </body>
 </html>

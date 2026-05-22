@@ -6,26 +6,22 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
+	<div class="login-container">
 	<h1>ログイン</h1>
 
 	<form action="/login" method="post">
-		<table border="1">
-			<tr>
-				<th>メールアドレス</th>
-				<td>
-					<input type="text" name="email" placeholder="メールアドレス">
-				</td>
-			</tr>
-			<tr>
-				<th>パスワード</th>
-				<td>
-					<input type="text" name="password" placeholder="パスワード">
-				</td>
-			</tr>
-		</table>
+		<div class="form-group">			
+		<input type="text" name="email" placeholder="メールアドレス">
+		</div>
+	
+		<div class="form-group">
+			<input type="text" name="password" placeholder="パスワード">
+		</div>
+		
 		<button>ログイン</button>
 		<br> <span th:text="${message}" style="color: red"></span>
 		<a href="/users/add">新規登録</a>
 	</form>
+	</div>
 </body>
 </html>

@@ -32,7 +32,8 @@ public class DishController {
 	//登録内容一覧表示
 	@GetMapping("/dishes/result")
 	public String index(Model model) {
-		List<Result> resultList = resultRepository.findAll();
+		Integer userId = (Integer) session.getAttribute("userId");
+		List<Result> resultList = resultRepository.findByUserId(userId);
 		model.addAttribute("resultList", resultList); //"dishes"
 		return "dishesresult";
 	}
@@ -41,6 +42,13 @@ public class DishController {
 	@GetMapping("/dishes/add")
 	public String create() {
 		return "dishesadd";
+	}
+
+	@PostMapping("/dishes/{id}/delete")
+	public String delete(
+			@PathVariable Integer id) {
+		resultRepository.deleteById(id);
+		return "redirect:/dishes/result";
 	}
 
 	@GetMapping("/dishes/memo")

@@ -1,0 +1,159 @@
+/* 全体 */
+body {
+	background-color: rgb(255, 255, 128); /* 背景色  */
+	text-align: center; /* 中央寄せ */
+    min-width: 900px; /* 最小幅 */
+}
+/* ヘッダー、ナビゲーションメニュー、フッター */
+header, nav, footer {
+	background-color: #ffd670; /* 背景色 */
+	background-image: radial-gradient(circle, #ff9770, #ffd670);
+	color: #4d2600; /* 文字色 */
+	font-size: 20px;
+	padding-top: 2px; /* 内側余白(上) */
+	padding-bottom: 2px; /* 内側余白(下) */
+}
+/* ヘッダー、ナビゲーション内リンク */
+header a, nav a {
+	color: #ffffff;
+}
+/* ヘッダー内見出し */
+header h1 {
+	font-size: 20pt;
+	margin: 10px auto;
+}
+
+/* 仕切り線 */
+hr {
+	border-top: 2px dashed rgb(128, 0, 0);
+}
+/* メイン */
+main {
+	background-color: rgb(255, 255, 128);
+	min-height: 50px;
+	padding: 20px;
+}
+
+table-container{
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+table {
+ width: 50%;
+ margin: 0 auto;
+ text-align: center;
+ border-collapse: collapse;
+ border-spacing: 0;
+ border: solid 2px rgb(128, 0, 0);
+}
+table th {
+ padding: 3px;
+ background: rgb(199, 175, 141);
+ border: solid 1px rgb(128, 0, 0);
+ border-bottom: solid 2px rgb(128, 0, 0);
+}
+table td {
+ padding: 3px;
+ border-left: solid 1px rgb(128, 0, 0);
+}
+table tr {
+ border-top: dashed 1px rgb(128, 0, 0);
+}
+
+.dish-container {
+  background-color: rgb(255,255,128);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+table-button{
+	margin: 2px;
+		padding: 5px 20px;
+		background-color: #e5857b;
+		color: #ffffff;
+		border: none;
+		width:150px;
+		cursor: pointer;
+}
+
+
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+/* 送信ボタン */
+button {
+  width: 30%;
+  padding: 15px;
+  background-color: #ff6347;
+  border: none;
+  border-radius: 50px 20px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+/* エラーメッセージ */
+ul.error {
+	color: red;
+	list-style: none;
+	padding-left: 0;
+}
+
+
+
+.character {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 30%;
+  padding: 10px 15px;
+  border: 2px solid #ff6357;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: #ffb347;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff6347;
+  box-shadow: 0 0 10px rgba(255, 99, 71, 0.5);
+  transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

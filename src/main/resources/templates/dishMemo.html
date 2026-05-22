@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>詳細登録</title>
+<link rel="stylesheet" href="/css/aaa.css">
 </head>
 <body>
 <header>食事内容登録一覧</header>
+		<div style="text-align: right;">
+			<a href="/logout"><button>ログアウト</button></a>
+		</div>
 <form action="/dishes/add" method="post">
 <input type="hidden" name="stapleFood" th:value="${stapleFood}">
 <input type="hidden" name="sideDish" th:value="${sideDish}">

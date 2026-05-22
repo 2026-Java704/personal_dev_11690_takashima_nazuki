@@ -3,56 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>新規登録</title>
-<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/aaa.css">
 </head>
 <body>
+	<div class="dish-container">
+	<header><h3>新規登録</h3></header>
 	<main>
-		<h3>新規登録</h3>
 	<form action="/users/add" method="post">
 		
 		<ul th:if="${errorList}" class="error">
 			<li th:each="error:${errorList}" th:text="${error}"></li>
 		</ul>
 		
-	<table border="1">
-		<tr>
-			<th>メールアドレス</th>
-			<td>
-				<input type="text" name="email" th:value="${email}">
-			</td>
-		</tr>
-		<tr>
-			<th>名前</th>
-			<td>
-				<input type="text" name="name" th:value="${name}">
-			</td>
-		</tr>
-		<tr>
-			<th>パスワード</th>
-			<td>
-				<input type="text" name="password">
-			</td>
-		</tr>
-		<tr>
-			<th>年齢</th>
-			<td>
-				<input type="text" name="age" th:value="${age}">
-			</td>
-		</tr>	
-		<tr>
-			<th>性別</th>
-			<td>
+				<lavel for="email">メールアドレス</lavel><br>
+				<input type="text" name="email" th:value="${email}"><br>
+				
+				<lavel for="name">名前</lavel><br>
+				<input type="text" name="name" th:value="${name}"><br>
+			
+				<lavel for="password">パスワード</lavel><br>
+				<input type="text" name="password"><br>
+				
+				<lavel for="age">年齢</lavel><br>
+				<input type="text" name="age" th:value="${age}"><br>
+			
+				<lavel for="gender">性別</lavel><br>
 				<select name="gender">
 					<option value="" selected disabled> 選択してください</option>
 					<option value="1">男性</option>
 					<option value="2">女性</option>
-				</select>
-			</td>
-		</tr>	
-	</table>
+				</select><br><br>
+			
+	
 	<button>登録</button>
 	</form>
 	<a href="/login">ログイン画面へ戻る</a>
 </main>
+</div>
 </body>
 </html>

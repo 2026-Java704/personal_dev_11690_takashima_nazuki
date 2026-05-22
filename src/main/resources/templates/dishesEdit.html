@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>更新画面</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<form th:action="@{/dishes/{id}/edit(id=${result.id})}" method="post">
@@ -72,7 +73,7 @@
 							詳細
 						</th>
 						<td>
-							<textarea name="detailMemo" placeholder="詳細" rows="10" cols="33"></textarea>
+							<textarea name="detailMemo" placeholder="メモ" rows="10" cols="35"></textarea>
 						</td>
 					</tr>
 				</table>

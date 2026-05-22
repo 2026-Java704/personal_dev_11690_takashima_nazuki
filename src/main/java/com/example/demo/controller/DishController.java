@@ -156,12 +156,7 @@ public class DishController {
 		result.setMilkDish(milkDish);
 		result.setFruitCount(fruitCount);
 		result.setDetailMemo(detailMemo);
-		int achievement = sumAchievement(
-				stapleFood,
-				sideDish,
-				mainDish,
-				milkDish,
-				fruitCount);
+		int achievement = sumAchievement(stapleFood, sideDish, mainDish, milkDish, fruitCount);
 		result.setAchievement(achievement);
 		resultRepository.save(result);
 
@@ -170,8 +165,72 @@ public class DishController {
 
 	private int sumAchievement(Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish,
 			Integer fruitCount) {
+		int achievement = 88;
 
-		return 0;
+		//主食の評価計算
+		if (stapleFood >= 5 && 7 >= stapleFood) {
+			achievement -= 0;
+		} else if (stapleFood == 0) {
+			achievement -= 28;
+		} else if (stapleFood == 8 || stapleFood == 4) {
+			achievement -= 4;
+		} else if (stapleFood == 9 || stapleFood == 3) {
+			achievement -= 8;
+		} else if (stapleFood == 10 || stapleFood == 1) {
+			achievement -= 16;
+		} else if (stapleFood == 2) {
+			achievement -= 12;
+		}
+
+		//副菜の評価計算
+		if (sideDish >= 5 && 6 >= sideDish) {
+			achievement -= 0;
+		} else if (sideDish == 0) {
+			achievement -= 24;
+		} else if (sideDish == 4 || sideDish == 7) {
+			achievement -= 4;
+		} else if (sideDish == 3 || sideDish == 8) {
+			achievement -= 8;
+		} else if (sideDish == 2 || sideDish == 9) {
+			achievement -= 12;
+		} else if (sideDish == 1 || sideDish == 10) {
+			achievement -= 16;
+		}
+
+		//主菜の評価計算
+		if (mainDish >= 3 && 5 >= mainDish) {
+			achievement -= 0;
+		} else if (mainDish == 0 || mainDish == 10) {
+			achievement -= 20;
+		} else if (mainDish == 2 || mainDish == 6) {
+			achievement -= 4;
+		} else if (mainDish == 1 || mainDish == 7) {
+			achievement -= 8;
+		} else if (mainDish == 8) {
+			achievement -= 12;
+		} else if (mainDish == 9) {
+			achievement -= 16;
+		}
+
+		//牛乳・乳製品の評価計算
+		if (milkDish == 2) {
+			achievement -= 0;
+		} else if (milkDish == 1 || milkDish == 3) {
+			achievement -= 4;
+		} else if (milkDish == 0 || milkDish >= 4) {
+			achievement -= 8;
+		}
+
+		//果物の評価計算
+		if (fruitCount == 2) {
+			achievement -= 0;
+		} else if (fruitCount == 1 || fruitCount == 3) {
+			achievement -= 4;
+		} else if (fruitCount == 0 || fruitCount >= 4) {
+			achievement -= 8;
+		}
+
+		return achievement;
 	}
 
 }

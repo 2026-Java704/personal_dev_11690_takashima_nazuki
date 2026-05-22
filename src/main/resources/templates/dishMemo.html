@@ -12,8 +12,9 @@
 <input type="hidden" name="mainDish" th:value="${mainDish}">
 <input type="hidden" name="milkDish" th:value="${milkDish}">
 <input type="hidden" name="fruitCount" th:value="${fruitCount}">
-<textarearea name="dishmemo" placeholder="詳細"></textarearea>
+<textarearea name="dishmemo" placeholder="詳細">主食：<br>副菜：<br>主菜：<br>牛乳・乳製品：<br>果物</textarearea>
 <br>
+<button type="submit">登録</button>
 </form>
 <a href="/dishes/add">戻る</a>
 </body>

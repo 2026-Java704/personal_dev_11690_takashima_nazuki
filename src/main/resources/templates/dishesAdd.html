@@ -8,77 +8,59 @@
 <body>
 	<header>
 		<h1>食事登録</h1>
+		<p style="text-align: right;"><a href="/logout">ログアウト</a></p>
 	</header>
 	<div style="text-align: right;">
-		<a href="/logout"><button>ログアウト</button></a>
+		
 	</div>
 	<main>
 		<form action="/dishes/add" method="post">
-			<table border="1">
-				<tr>
-					<th>
-						主食
-					</th>
-					<td>
+			
+						<lavel for="stapleFood">主食</lavel>
+						<div class="selectbox-5">
 						<select name="stapleFood" required>
 							<option value="" disabled selected>選択してください</option>
 							<option th:each="i:${#numbers.sequence(0,10)}" th:value="${i}" th:text="${i} + 'つ'" th:selected="${i == stapleFood}">
 							</option>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						副菜
-					</th>
-					<td>
+						</div>
+				
+						<lavel for="sideDish">副菜</lavel>
+						<div class="selectbox-5">
 						<select name="sideDish" required>
 							<option value="" disabled selected>選択してください</option>
 							<option th:each="i:${#numbers.sequence(0,10)}" th:value="${i}" th:text="${i} + 'つ'" th:selected="${i == sideDish}">
 							</option>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						主菜
-					</th>
-					<td>
+						</div>
+				
+						<lavel for="mainDish">主菜</lavel>
+						<div class="selectbox-5">
 						<select name="mainDish" required>
 							<option value="" disabled selected>選択してください</option>
 							<option th:each="i:${#numbers.sequence(0,10)}" th:value="${i}" th:text="${i} + 'つ'" th:selected="${i == mainDish}">
 							</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						牛乳・乳製品
-					</th>
-					<td>
+						</select></div>
+				
+						<lavel for="milkDish">牛乳・乳製品</lavel>
+						<div class="selectbox-5">
 						<select name="milkDish" required>
 							<option value="" disabled selected>選択してください</option>
 							<option th:each="i:${#numbers.sequence(0,10)}" th:value="${i}" th:text="${i} + 'つ'" th:selected="${i ==milkDish}">
 							</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						果物
-					</th>
-					<td>
+						</select></div>
+					
+						<lavel for="fruitCount">果物</lavel>
+						<div class="selectbox-5">
 						<select name="fruitCount" required>
 							<option value="" disabled selected>選択してください</option>
 							<option th:each="i:${#numbers.sequence(0,10)}" th:value="${i}" th:text="${i} + 'つ'" th:selected="${i ==fruitCoount}">
 							</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-		<button type="submit">登録</button><br>
+						</select></div>
+				
+		<div class="main"><button>登録</button></div><br>
 
-			<button formmethod="get" formaction="/dishes/memo">詳細登録</button>
+			<div class="main"><button formmethod="get" formaction="/dishes/memo">詳細登録</button></div>
 	</form>
 	</main>	
 

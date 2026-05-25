@@ -9,7 +9,7 @@
 	<header>
 		<h1>登録内容一覧</h1>
 	</header>
-	<div style="text-align: right;"><a href="/logout"><button>ログアウト</button></a>
+	<a href="/logout" style="text-align: right;">ログアウト</a>
 	</div><br>
 	<table border="1">
 		<tr>
@@ -48,20 +48,38 @@
 			</td>
 			<td class="memo" th:text="${record.detailMemo}"></td>
 			<td th:text="${record.achievement}"></td>
-			<td >
+			<td class="result">
 				<form th:action="@{/dishes/{id}/edit(id=${record.id})}" method="get">
 				<button type="submit">更新</button>
 				</form>
 			</td>
-			<td>
+			<td class="result">
 				<form th:action="'/dishes/'+${record.id}+'/delete'" method="post">
-					<button type="submit">削除</button>
+					<button type="submit" id="Btn">削除</button>
 				</form>
 			</td>
 		</tr>
 	</table>
-	<form action="/dishes/add" method="get">
-		<button>登録画面へ</button><br><br>
+	<script>
+		document.getElementById('Btn').addEventListener('click', function() {
+		    // ダイアログの表示
+		    const isConfirmed = confirm('本当に削除しますか？この操作は元に戻せません。');
+		    
+		    if (isConfirmed) {
+		        // 「OK」が押されたときの処理
+		        console.log('削除を実行します');
+		    } else {
+		        // 「キャンセル」が押されたときの処理
+		        console.log('削除をキャンセルしました');
+				return false;
+		    }
+		});
+	 </script>
+	
+	
+		
+	<form action="/dishes/add" method="get"><br>
+		<div class="main"><button>登録画面へ</button></div><br><br>
 	</form>
 	<img src="https://www.maff.go.jp/j/balance_guide/img/kihon_syoku.jpg">
 </body>

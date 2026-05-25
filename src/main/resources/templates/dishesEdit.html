@@ -13,7 +13,8 @@
 		<a href="/logout"><button>ログアウト</button></a>
 	</div>
 	<form th:action="@{/dishes/{id}/edit(id=${result.id})}" method="post">
-			<table border="1">
+			<table
+				br border="1">
 				<tr>
 					<th>登録ID</th>
 					<td th:text="${result.id}"></td>
@@ -83,7 +84,8 @@
 						</td>
 					</tr>
 				</table>
-				<button type="submit">更新</button>
+				<br>
+				<div class="main"><button type="submit">更新</button></div>
 				</form>
 				
 </body>

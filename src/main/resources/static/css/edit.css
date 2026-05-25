@@ -34,34 +34,31 @@ main {
 	padding: 20px;
 }
 
-table-container{
-	overflow-x: auto;
-	white-space: nowrap;
+table{
+	background-color: #ffffff;
+  border-collapse:separate;
+  border-spacing: 10px;
+  margin: 0 auto;
+  text-align: center;
+  width: 70%;
 }
 
-table {
- width: 70%;
- margin: 0 auto;
- text-align: center;
- border-collapse: collapse;
- border-spacing: 0;
- border: solid 2px rgb(128, 0, 0);
-}
-table th {
- padding: 3px;
- background: rgb(179, 102, 102);
- border: solid 1px rgb(128, 0, 0);
- border-bottom: solid 2px rgb(128, 0, 0);
+table th,table td{
+  border-radius: 20px;
+  text-align: center;
+
 }
 
-
-
-table td {
- padding: 3px;
- border-left: solid 1px rgb(128, 0, 0);
+table th{
+  background-color: rgb(255, 203, 179);
+  color: white;
+  border:solid 1px rgb(255, 255, 255);
+  width: 30ps;
 }
-table tr {
- border-top: dashed 1px rgb(128, 0, 0);
+
+table td{
+  background-color: rgb(228, 212, 188);
+  border:solid 1px rgb(255, 255, 255);
 }
 
 .dish-container {
@@ -218,4 +215,12 @@ input:focus {
   outline: 2px solid rgb(255, 255, 128);
 }
 
+.field{
+	display:flex;
+}
+.field > div {
+  width: 50%; /* 画面を半分ずつに分割 */
+  padding: 20px;
+  box-sizing: border-box; /* パディングを含めて幅を計算 */
+}
 

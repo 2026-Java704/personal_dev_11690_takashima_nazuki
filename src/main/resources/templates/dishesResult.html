@@ -48,36 +48,37 @@
 			</td>
 			<td class="memo" th:text="${record.detailMemo}"></td>
 			<td th:text="${record.achievement}"></td>
-			<td class="result">
+			<td style="width: 20%;">
 				<form th:action="@{/dishes/{id}/edit(id=${record.id})}" method="get">
-				<button type="submit">更新</button>
+				<div class="data"><button type="submit">更新</button></div>
+				</form>
+			</td><td style="width: 20%;">
+				<form th:action="@{/dishes/{id}/delete(id=${record.id})}" method="post" class="deleteForm">
+					<div class="data"><button type="submit">削除</button></div>
 				</form>
 			</td>
-			<td class="result">
-				<form th:action="'/dishes/'+${record.id}+'/delete'" method="post">
-					<button type="submit" id="Btn">削除</button>
-				</form>
-			</td>
+			
 		</tr>
 	</table>
+	
 	<script>
-		document.getElementById('Btn').addEventListener('click', function() {
-		    // ダイアログの表示
-		    const isConfirmed = confirm('本当に削除しますか？この操作は元に戻せません。');
-		    
-		    if (isConfirmed) {
-		        // 「OK」が押されたときの処理
-		        console.log('削除を実行します');
-		    } else {
-		        // 「キャンセル」が押されたときの処理
-		        console.log('削除をキャンセルしました');
-				return false;
-		    }
+		const deleteForms = document.querySelectorAll('.deleteForm');
+
+		deleteForms.forEach(function(form) {
+			form.addEventListener('submit', function(event) {
+				const isConfirmed = confirm('本当に削除しますか？この操作は元に戻せません。');
+
+				if (!isConfirmed) {
+					event.preventDefault();
+					console.log('削除をキャンセルしました');
+				} else {
+					console.log('削除を実行します');
+				}
+			});
 		});
-	 </script>
-	
-	
-		
+	</script>
+
+
 	<form action="/dishes/add" method="get"><br>
 		<div class="main"><button>登録画面へ</button></div><br><br>
 	</form>

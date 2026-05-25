@@ -3,23 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>詳細登録</title>
-<link rel="stylesheet" href="/css/aaa.css">
+<link rel="stylesheet" href="/css/memo.css">
 </head>
 <body>
-<header>食事内容登録一覧</header>
-		<div style="text-align: right;">
-			<a href="/logout"><button>ログアウト</button></a>
-		</div>
-<form action="/dishes/add" method="post">
+
+	
+		
+<form action="/dishes/add" method="post" id="contact">
 <input type="hidden" name="stapleFood" th:value="${stapleFood}">
 <input type="hidden" name="sideDish" th:value="${sideDish}">
 <input type="hidden" name="mainDish" th:value="${mainDish}">
 <input type="hidden" name="milkDish" th:value="${milkDish}">
 <input type="hidden" name="fruitCount" th:value="${fruitCount}">
+<div class="container">
+    <div class="head">
+      <h2>Memo</h2>
+    </div>
 <textarea name="detailMemo" placeholder="メモ"  rows="10" cols="35"></textarea>
 <br>
 <button type="submit">登録</button>
 </form>
-<a href="/dishes/add">戻る</a>
+</div>
+
+<div class="main"><button formmethod="get" formaction="/dishes/add">戻る</button></div>
 </body>
 </html>

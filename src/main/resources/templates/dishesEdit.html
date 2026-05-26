@@ -10,11 +10,10 @@
 		<h1>更新</h1>
 	</header>
 	<div style="text-align: right;">
-		<a href="/logout"><button>ログアウト</button></a>
+		<a href="/logout">ログアウト</a>
 	</div>
 	<form th:action="@{/dishes/{id}/edit(id=${result.id})}" method="post">
-			<table
-				br border="1">
+			<table>
 				<tr>
 					<th>登録ID</th>
 					<td th:text="${result.id}"></td>

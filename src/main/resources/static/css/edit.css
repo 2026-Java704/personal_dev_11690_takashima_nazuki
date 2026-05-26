@@ -38,6 +38,7 @@ table{
 	background-color: #ffffff;
   border-collapse:separate;
   border-spacing: 10px;
+  border-radius:  30px;
   margin: 0 auto;
   text-align: center;
   width: 70%;

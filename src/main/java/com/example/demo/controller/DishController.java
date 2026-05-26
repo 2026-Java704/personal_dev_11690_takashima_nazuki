@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entity.Result;
 import com.example.demo.repository.DishRepository;
 import com.example.demo.repository.ResultRepository;
+import com.example.demo.repository.UserRepository;
 
 @Controller
 public class DishController {
 	private final HttpSession session;
 	private final DishRepository dishRepository;
 	private final ResultRepository resultRepository;
+	private final UserRepository userRepository;
 
-	public DishController(HttpSession session, DishRepository dishRepository, ResultRepository resultRepository) {
+	public DishController(HttpSession session, DishRepository dishRepository, ResultRepository resultRepository,
+			UserRepository userrepository) {
 		this.session = session;
 		this.dishRepository = dishRepository;
 		this.resultRepository = resultRepository;
+		this.userRepository = userRepository;
 	}
 
 	//登録内容一覧表示

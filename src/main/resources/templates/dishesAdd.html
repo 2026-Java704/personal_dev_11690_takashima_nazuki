@@ -16,6 +16,10 @@
 	<main>
 		<form action="/dishes/add" method="post">
 			
+			<div class="field">
+				
+			<div class="left">
+	
 						<lavel for="stapleFood">主食</lavel>
 						<div class="selectbox-5">
 						<select name="stapleFood" required>
@@ -57,11 +61,18 @@
 							<option th:each="i:${#numbers.sequence(0,10)}" th:value="${i}" th:text="${i} + 'つ'" th:selected="${i ==fruitCoount}">
 							</option>
 						</select></div>
+			</div>
+			<div class="right">
+			<img src="https://www.maff.go.jp/j/balance_guide/img/kihon_syoku.jpg">
+			</div>			
+			</div>
+			<div class="bfield">
 				
 		<div class="main"><button>登録</button></div><br>
 
-			<div class="main"><button formmethod="get" formaction="/dishes/memo">詳細登録</button></div>
-	</form>
+			<div class="sub"><button formmethod="get" formaction="/dishes/memo">詳細登録</button></div>
+		</div>
+		</form>
 	</main>	
 
 </body>

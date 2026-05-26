@@ -34,32 +34,34 @@ main {
 	padding: 20px;
 }
 
-table{
-	background-color: #ffffff;
-	border-radius:  30px;
-  border-collapse:separate;
-  border-spacing: 10px;
-  margin: 0 auto;
-  text-align: center;
-  width: 70%;
+table-container{
+	overflow-x: auto;
+	white-space: nowrap;
 }
 
-table th,table td{
-  border-radius: 20px;
-  text-align: center;
-
+table {
+ width: 70%;
+ margin: 0 auto;
+ text-align: center;
+ border-collapse: collapse;
+ border-spacing: 0;
+ border: solid 2px rgb(128, 0, 0);
+}
+table th {
+ padding: 3px;
+ background: rgb(179, 102, 102);
+ border: solid 1px rgb(128, 0, 0);
+ border-bottom: solid 2px rgb(128, 0, 0);
 }
 
-table th{
-  background-color: rgb(255, 203, 179);
-  color: rgb(64, 0, 0);
-  border:solid 1px rgb(255, 255, 255);
-  width: 30ps;
-}
 
-table td{
-  background-color: rgb(228, 212, 188);
-  border:solid 1px rgb(255, 255, 255);
+
+table td {
+ padding: 3px;
+ border-left: solid 1px rgb(128, 0, 0);
+}
+table tr {
+ border-top: dashed 1px rgb(128, 0, 0);
 }
 
 .dish-container {
@@ -89,11 +91,11 @@ table td{
 
 
 .data button {
-  width: 50%;
+  width: 70%;
   padding: 10px;
   background-color: #ff6347;
   border: none;
-  border-radius:  20px;
+  border-radius: 30px 20px;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -101,26 +103,13 @@ table td{
   transition: transform 0.3s ease;
 }
 
-.search button{
-	width: 20%;
-	padding: 10px;
-	background-color: #ff6347;
-	margin-right:120%;
-	margin-top:12%;
-	border: none;
-	border-radius:  20px;
-	color: #fff;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: transform 0.3s ease;
-}
 
 
 /* 送信ボタン */
 .main button {
-  width: 30%;
+  width: 50%;
   padding: 15px;
+  
   background-color: #ff6347;
   border: none;
   border-radius: 50px 20px;
@@ -131,6 +120,20 @@ table td{
   transition: transform 0.3s ease;
 }
 
+.sub button{
+width: 50%;
+ padding: 15px;
+ margin-top: -60%;
+ margin-left: -50%;
+ background-color: #ff6347;
+ border: none;
+ border-radius: 50px 20px;
+ color: #fff;
+ font-size: 18px;
+ font-weight: bold;
+ cursor: pointer;
+ transition: transform 0.3s ease;
+}
 button:hover {
   transform: scale(1.1);
 }
@@ -171,51 +174,7 @@ input:focus {
   transform: scale(1.05);
 }
 
-.container {
-  max-width:600px;
-  margin-right: 30%;
-  text-align:center;
-  -webkit-border-radius:6px;
-  -moz-border-radius:6px;
-  border-radius:6px;
-  background-color:#FAFAFA;
-}
-.head {
-  -webkit-border-radius:6px 6px 0px 0px;
-  -moz-border-radius:6px 6px 0px 0px;
-  border-radius:6px 6px 0px 0px;
-  background-color: #ff6347;
-  color:#FAFAFA;
-}
-input, textarea {
-  font-size: 1em;
-  padding: 15px 10px 10px;
-  font-family: 'Source Sans Pro',arial,sans-serif;
-  border: 1px solid #cecece;
-  background: #d7d7d7;
-  color:rgb(64, 0, 0);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 80%;
-  max-width: 600px;
-  
-}
 
-.left{
-	width: 150px;
-	margin-left: 10%;
-}
-
-.right{
-	flex: 1;
-}
 .memo{
 	white-space: pre-wrap;
 }
@@ -273,7 +232,6 @@ input, textarea {
 .selectbox-5 select:focus {
   outline: 2px solid rgb(255, 255, 128);
 }
-
 .field{
 	display:flex;
 }
@@ -282,4 +240,16 @@ input, textarea {
   padding: 20px;
   box-sizing: border-box; /* パディングを含めて幅を計算 */
 }
+.bfield{
+	display:flex;
+}
+.bfield > div {
+  width: 50%; /* 画面を半分ずつに分割 */
+  padding: 20px;
 
+}
+
+.right{
+	margin-right:20%;
+	margin-top:5%;
+}

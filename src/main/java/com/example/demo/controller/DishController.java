@@ -16,28 +16,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entity.Result;
 import com.example.demo.repository.DishRepository;
 import com.example.demo.repository.ResultRepository;
-import com.example.demo.repository.UserRepository;
 
 @Controller
 public class DishController {
 	private final HttpSession session;
 	private final DishRepository dishRepository;
 	private final ResultRepository resultRepository;
-	private final UserRepository userRepository;
 
-	public DishController(HttpSession session, DishRepository dishRepository, ResultRepository resultRepository,
-			UserRepository userrepository) {
+	public DishController(HttpSession session, DishRepository dishRepository, ResultRepository resultRepository) {
 		this.session = session;
 		this.dishRepository = dishRepository;
 		this.resultRepository = resultRepository;
-		this.userRepository = userRepository;
+
 	}
 
 	//登録内容一覧表示
 	@GetMapping("/dishes/result")
-	public String index(Model model) {
+	public String index(
+			@RequestParam(defaultValue = "") LocalDate recordDate,
+			Model model) {
 		Integer userId = (Integer) session.getAttribute("userId");
 		List<Result> resultList = resultRepository.findByUserId(userId);
+		resultRepository.findByRecordDate(recordDate);
+
+		if (recordDate == null) {
+			resultList = resultRepository.findAll();
+		} else {
+			resultList = resultRepository.findByRecordDate(recordDate);
+		}
 		model.addAttribute("resultList", resultList); //"dishes"
 		return "dishesresult";
 	}

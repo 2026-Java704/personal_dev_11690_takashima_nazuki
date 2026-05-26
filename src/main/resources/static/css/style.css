@@ -24,15 +24,14 @@ align-items: center; /* 背景色  */
 }
 /* ヘッダー、ナビゲーションメニュー、フッター */
 header, nav, footer {
-	background-color: rgb(255, 255, 128); /* 背景色 */
-	color: #ffffff; /* 文字色 */
+	 /* 背景色 */
+	color: rgb(128, 0, 0); /* 文字色 */
 	padding-top: 5px; /* 内側余白(上) */
 	padding-bottom: 5px; /* 内側余白(下) */
+	
 }
 /* ヘッダー、ナビゲーション内リンク */
-header a, nav a {
-	color: #ffffff;
-}
+
 /* ヘッダー内見出し */
 header h1 {
 	font-size: 20pt;

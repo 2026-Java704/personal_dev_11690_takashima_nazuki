@@ -27,7 +27,6 @@ public class DishController {
 		this.session = session;
 		this.dishRepository = dishRepository;
 		this.resultRepository = resultRepository;
-
 	}
 
 	//登録内容一覧表示
@@ -184,7 +183,6 @@ public class DishController {
 	private int sumAchievement(Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish,
 			Integer fruitCount) {
 		int achievement = 88;
-
 		//主食の評価計算
 		if (stapleFood >= 5 && 7 >= stapleFood) {
 			achievement -= 0;

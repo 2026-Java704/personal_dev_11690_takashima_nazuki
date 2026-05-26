@@ -153,6 +153,7 @@ ul.error {
 }
 
 input {
+	background-color: #ffffff;
   width: 30%;
   padding: 10px 15px;
   border: 2px solid #ff6357;

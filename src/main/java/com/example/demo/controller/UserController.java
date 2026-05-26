@@ -65,6 +65,7 @@ public class UserController {
 			@RequestParam(defaultValue = "") String password,
 			@RequestParam(defaultValue = "") Integer age,
 			@RequestParam(defaultValue = "") Integer gender,
+
 			Model model) {
 
 		// エラーチェック

@@ -144,3 +144,16 @@ label.error {
   cursor: pointer;
   transition: transform 0.3s ease;
 }
+
+.box10 {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: rgb(128, 0, 0);
+    background: #e4fcff;/*背景色*/
+    border-top: solid 6px rgb(255, 99, 71);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
+}
+.box10 p {
+    margin: 0; 
+    padding: 0;
+}

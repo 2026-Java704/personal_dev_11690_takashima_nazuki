@@ -19,30 +19,9 @@ public class User {
 	private String password;
 	private Integer age;
 	private Integer gender;
-	private Integer move;
 
 	public User() {
 
-	}
-
-	public User(Integer userId, String name, String email, String password, Integer age, Integer gender, Integer move) {
-		this.userId = userId;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.age = age;
-		this.gender = gender;
-		this.move = move;
-	}
-
-	public User(String name, String email, String password, Integer age, Integer gender, Integer move) {
-
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.age = age;
-		this.gender = gender;
-		this.move = move;
 	}
 
 	public User(Integer userId, String name, String email, String password, Integer age, Integer gender) {
@@ -61,14 +40,6 @@ public class User {
 		this.password = password;
 		this.age = age;
 		this.gender = gender;
-	}
-
-	public Integer getMove() {
-		return move;
-	}
-
-	public void setMove(Integer move) {
-		this.move = move;
 	}
 
 	public Integer getUserId() {

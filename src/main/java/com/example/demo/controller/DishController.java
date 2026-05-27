@@ -14,19 +14,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Result;
+import com.example.demo.entity.User;
 import com.example.demo.repository.DishRepository;
 import com.example.demo.repository.ResultRepository;
+import com.example.demo.repository.UserRepository;
 
 @Controller
 public class DishController {
 	private final HttpSession session;
 	private final DishRepository dishRepository;
 	private final ResultRepository resultRepository;
+	private final UserRepository userRepository;
 
-	public DishController(HttpSession session, DishRepository dishRepository, ResultRepository resultRepository) {
+	public DishController(HttpSession session, DishRepository dishRepository, ResultRepository resultRepository,
+			UserRepository userRepository) {
 		this.session = session;
 		this.dishRepository = dishRepository;
 		this.resultRepository = resultRepository;
+		this.userRepository = userRepository;
 	}
 
 	//登録内容一覧表示
@@ -34,17 +39,34 @@ public class DishController {
 	public String index(
 			@RequestParam(defaultValue = "") LocalDate recordDate,
 			Model model) {
-		Integer userId = (Integer) session.getAttribute("userId");
-		List<Result> resultList = resultRepository.findByUserId(userId);
-		resultRepository.findByRecordDate(recordDate);
-
-		if (recordDate == null) {
-			resultList = resultRepository.findAll();
-		} else {
-			resultList = resultRepository.findByRecordDate(recordDate);
+		Integer sessionUserId = (Integer) session.getAttribute("userId");
+		if (sessionUserId == null) {
+			return "redirect:/login";
 		}
-		model.addAttribute("resultList", resultList); //"dishes"
-		return "dishesresult";
+		List<Result> list;
+		if (recordDate != null) {
+			list = resultRepository.findByUserIdAndRecordDate(sessionUserId, recordDate);
+		} else {
+			list = resultRepository.findByUserId(sessionUserId);
+		}
+
+		// 2. 絞り込んだ「後」のリストをセット（これで平均値が正しく計算される）
+
+		User user = userRepository.findById(sessionUserId).orElse(null);
+		model.addAttribute("recordDate", recordDate);
+		model.addAttribute("resultList", list);
+		return "dishesResult";
+		//		Integer usessionUserId = (Integer) session.getAttribute("userId");
+		//		List<Result> resultList = resultRepository.findByUserId(userId);
+		//		resultRepository.findByRecordDate(recordDate);
+		//
+		//		if (recordDate == null) {
+		//			resultList = resultRepository.findAll();
+		//		} else {
+		//			resultList = resultRepository.findByUserIdAndRecordDate(sessionUserId, recordDate);
+		//		}
+		//		model.addAttribute("resultList", resultList); //"dishes"
+		//		return "dishesresult";
 	}
 
 	//新規食事登録画面表示
@@ -118,6 +140,11 @@ public class DishController {
 
 		Integer userId = (Integer) session.getAttribute("userId");
 		Result result = new Result();
+
+		User user = userRepository.findById(userId).orElse(null); //ここ
+		Integer age = user.getAge();
+		Integer gender = user.getGender();
+		Integer move = user.getMove();
 		result.setUserId(userId);
 		result.setRecordDate(LocalDate.now());
 		result.setStapleFood(stapleFood);
@@ -126,12 +153,17 @@ public class DishController {
 		result.setMilkDish(milkDish);
 		result.setFruitCount(fruitCount);
 		result.setDetailMemo(detailMemo);
+
 		int achievement = sumAchievement(
 				stapleFood,
 				sideDish,
 				mainDish,
 				milkDish,
-				fruitCount);
+				fruitCount,
+				age,
+				gender,
+				move); //ここ
+
 		result.setAchievement(achievement);
 		resultRepository.save(result);
 
@@ -166,6 +198,10 @@ public class DishController {
 		Result result = resultRepository.findById(id).get();
 		Integer userid = (Integer) session.getAttribute("userid");
 
+		User user = userRepository.findById(userid).orElse(null); //ここ
+		Integer age = user.getAge();
+		Integer gender = user.getGender();
+		Integer move = user.getMove();
 		result.setRecordDate(recordDate);
 		result.setStapleFood(stapleFood);
 		result.setSideDish(sideDish);
@@ -173,7 +209,7 @@ public class DishController {
 		result.setMilkDish(milkDish);
 		result.setFruitCount(fruitCount);
 		result.setDetailMemo(detailMemo);
-		int achievement = sumAchievement(stapleFood, sideDish, mainDish, milkDish, fruitCount);
+		int achievement = sumAchievement(stapleFood, sideDish, mainDish, milkDish, fruitCount, age, gender, move);
 		result.setAchievement(achievement);
 		resultRepository.save(result);
 
@@ -181,69 +217,244 @@ public class DishController {
 	}
 
 	private int sumAchievement(Integer stapleFood, Integer sideDish, Integer mainDish, Integer milkDish,
-			Integer fruitCount) {
+			Integer fruitCount, Integer age, Integer gender, Integer move) { //ここ
 		int achievement = 88;
-		//主食の評価計算
-		if (stapleFood >= 5 && 7 >= stapleFood) {
-			achievement -= 0;
-		} else if (stapleFood == 0) {
-			achievement -= 28;
-		} else if (stapleFood == 8 || stapleFood == 4) {
-			achievement -= 4;
-		} else if (stapleFood == 9 || stapleFood == 3) {
-			achievement -= 8;
-		} else if (stapleFood == 10 || stapleFood == 1) {
-			achievement -= 16;
-		} else if (stapleFood == 2) {
-			achievement -= 12;
-		}
 
-		//副菜の評価計算
-		if (sideDish >= 5 && 6 >= sideDish) {
-			achievement -= 0;
-		} else if (sideDish == 0) {
-			achievement -= 24;
-		} else if (sideDish == 4 || sideDish == 7) {
-			achievement -= 4;
-		} else if (sideDish == 3 || sideDish == 8) {
-			achievement -= 8;
-		} else if (sideDish == 2 || sideDish == 9) {
-			achievement -= 12;
-		} else if (sideDish == 1 || sideDish == 10) {
-			achievement -= 16;
-		}
+		if (gender == 1 && (age >= 18 && age <= 69) && move == 1) {
+			if (stapleFood >= 5 && stapleFood <= 7) {
+				achievement += 0;
+			} else if (stapleFood == 8 || stapleFood == 4) {
+				achievement -= 4;
+			} else if (stapleFood == 9 || stapleFood == 3) {
+				achievement -= 8;
+			} else if (stapleFood == 10 || stapleFood == 2) {
+				achievement -= 16;
+			} else if (stapleFood == 11 || stapleFood == 2) {
+				achievement -= 20;
+			} else if (stapleFood == 12 || stapleFood == 1) {
+				achievement -= 24;
+			} else {
+				achievement -= 28;
+			}
 
-		//主菜の評価計算
-		if (mainDish >= 3 && 5 >= mainDish) {
-			achievement -= 0;
-		} else if (mainDish == 0 || mainDish == 10) {
-			achievement -= 20;
-		} else if (mainDish == 2 || mainDish == 6) {
-			achievement -= 4;
-		} else if (mainDish == 1 || mainDish == 7) {
-			achievement -= 8;
-		} else if (mainDish == 8) {
-			achievement -= 12;
-		} else if (mainDish == 9) {
-			achievement -= 16;
-		}
+			if (sideDish >= 5 && sideDish <= 6) {
+				achievement += 0;
+			} else if (sideDish == 7 || sideDish == 4) {
+				achievement -= 4;
+			} else if (sideDish == 8 || sideDish == 3) {
+				achievement -= 8;
+			} else if (sideDish == 9 || sideDish == 2) {
+				achievement -= 12;
+			} else if (sideDish == 10 || sideDish == 1) {
+				achievement -= 16;
+			} else if (sideDish == 0) {
+				achievement -= 20;
+			}
 
-		//牛乳・乳製品の評価計算
-		if (milkDish == 2) {
-			achievement -= 0;
-		} else if (milkDish == 1 || milkDish == 3) {
-			achievement -= 4;
-		} else if (milkDish == 0 || milkDish >= 4) {
-			achievement -= 8;
-		}
+			if (mainDish >= 3 && mainDish <= 5) {
+				achievement += 0;
+			} else if (mainDish == 6 || mainDish == 2) {
+				achievement -= 4;
+			} else if (mainDish == 7 || mainDish == 1) {
+				achievement -= 8;
+			} else if (mainDish == 8 || mainDish == 0) {
+				achievement -= 16;
+			} else {
+				achievement -= 20;
+			}
 
-		//果物の評価計算
-		if (fruitCount == 2) {
-			achievement -= 0;
-		} else if (fruitCount == 1 || fruitCount == 3) {
-			achievement -= 4;
-		} else if (fruitCount == 0 || fruitCount >= 4) {
-			achievement -= 8;
+			if (milkDish == 2) {
+				achievement += 0;
+			} else if (milkDish == 1 || milkDish == 3) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
+
+			if (fruitCount == 2) {
+				achievement += 0;
+			} else if (fruitCount == 1 || fruitCount == 3) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
+
+		} else if ((age >= 18 && age <= 69) && gender == 1 && move == 2) {
+			if (stapleFood >= 6 && stapleFood <= 8) {
+				achievement += 0;
+			} else if (stapleFood == 9 || stapleFood == 5) {
+				achievement -= 4;
+			} else if (stapleFood == 10 || stapleFood == 4) {
+				achievement -= 8;
+			} else if (stapleFood == 11 || stapleFood == 2) {
+				achievement -= 16;
+			} else if (stapleFood == 12 || stapleFood == 1) {
+				achievement -= 20;
+			} else if (stapleFood == 13 || stapleFood == 0) {
+				achievement -= 24;
+			} else {
+				achievement -= 28;
+			}
+
+			if (sideDish >= 6 && sideDish <= 7) {
+				achievement += 0;
+			} else if (sideDish == 8 || sideDish == 5) {
+				achievement -= 4;
+			} else if (sideDish == 9 || sideDish == 4) {
+				achievement -= 8;
+			} else if (sideDish == 10 || sideDish == 3) {
+				achievement -= 12;
+			} else if (sideDish == 11 || sideDish == 2) {
+				achievement -= 16;
+			} else if (sideDish == 12 || sideDish == 1) {
+				achievement -= 20;
+			} else {
+				achievement -= 24;
+			}
+
+			if (mainDish >= 4 && mainDish <= 6) {
+				achievement += 0;
+			} else if (mainDish == 7 || mainDish == 3) {
+				achievement -= 4;
+			} else if (mainDish == 8 || mainDish == 2) {
+				achievement -= 8;
+			} else if (mainDish == 9 || mainDish == 1) {
+				achievement -= 16;
+			} else {
+				achievement -= 20;
+			}
+
+			if (milkDish == 2 || milkDish == 3) {
+				achievement += 0;
+			} else if (milkDish == 1 || milkDish == 4) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
+
+			if (fruitCount == 2 || fruitCount == 3) {
+				achievement += 0;
+			} else if (fruitCount == 1 || fruitCount == 4) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
+		} else if ((age >= 18 && age <= 69) && gender == 2 && move == 1) {
+			if (stapleFood >= 4 && stapleFood <= 6) {
+				achievement += 0;
+			} else if (stapleFood == 7 || stapleFood == 3) {
+				achievement -= 4;
+			} else if (stapleFood == 8 || stapleFood == 2) {
+				achievement -= 8;
+			} else if (stapleFood == 9 || stapleFood == 1) {
+				achievement -= 16;
+			} else if (stapleFood == 10 || stapleFood == 0) {
+				achievement -= 20;
+			} else if (stapleFood == 11) {
+				achievement -= 24;
+			} else {
+				achievement -= 28;
+			}
+
+			if (sideDish >= 5 && sideDish <= 6) {
+				achievement += 0;
+			} else if (sideDish == 7 || sideDish == 4) {
+				achievement -= 4;
+			} else if (sideDish == 8 || sideDish == 3) {
+				achievement -= 8;
+			} else if (sideDish == 9 || sideDish == 2) {
+				achievement -= 12;
+			} else if (sideDish == 10 || sideDish == 1) {
+				achievement -= 16;
+			} else if (sideDish == 11 || sideDish == 0) {
+				achievement -= 20;
+			} else {
+				achievement -= 24;
+			}
+
+			if (mainDish >= 3 && mainDish <= 4) {
+				achievement += 0;
+			} else if (mainDish == 5 || mainDish == 2) {
+				achievement -= 4;
+			} else if (mainDish == 6 || mainDish == 1) {
+				achievement -= 8;
+			} else if (mainDish == 7 || mainDish == 0) {
+				achievement -= 16;
+			} else {
+				achievement -= 20;
+			}
+
+			if (milkDish == 2) {
+				achievement += 0;
+			} else if (milkDish == 1 || milkDish == 3) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
+
+			if (fruitCount == 2) {
+				achievement += 0;
+			} else if (fruitCount == 1 || fruitCount == 3) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
+		} else if ((age >= 18 && age <= 69) && gender == 2 && move == 2) {
+			if (stapleFood >= 5 && stapleFood <= 7) {
+				achievement += 0;
+			} else if (stapleFood == 0 || stapleFood == 1) {
+				achievement -= 24;
+			} else if (stapleFood == 8 || stapleFood == 4) {
+				achievement -= 4;
+			} else if (stapleFood == 9 || stapleFood == 3) {
+				achievement -= 8;
+			} else if (stapleFood == 10 || stapleFood == 3) {
+				achievement -= 16;
+			} else if (stapleFood == 2) {
+				achievement -= 20;
+			}
+
+			if (sideDish >= 5 && sideDish <= 6) {
+				achievement += 0;
+			} else if (sideDish == 7 || sideDish == 4) {
+				achievement -= 4;
+			} else if (sideDish == 8 || sideDish == 3) {
+				achievement -= 8;
+			} else if (sideDish == 9 || sideDish == 2) {
+				achievement -= 12;
+			} else if (sideDish == 10 || sideDish == 1) {
+				achievement -= 16;
+			} else if (sideDish == 0) {
+				achievement -= 20;
+			}
+
+			if (mainDish >= 3 && mainDish <= 5) {
+				achievement += 0;
+			} else if (mainDish == 6 || mainDish == 2) {
+				achievement -= 4;
+			} else if (mainDish == 7 || mainDish == 1) {
+				achievement -= 8;
+			} else if (mainDish == 8 || mainDish == 0) {
+				achievement -= 16;
+			} else {
+				achievement -= 20;
+			}
+
+			if (milkDish == 2) {
+				achievement += 0;
+			} else if (milkDish == 1 || milkDish == 3) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
+
+			if (fruitCount == 2) {
+				achievement += 0;
+			} else if (fruitCount == 1 || fruitCount == 3) {
+				achievement -= 4;
+			} else {
+				achievement -= 8;
+			}
 		}
 
 		return achievement;
